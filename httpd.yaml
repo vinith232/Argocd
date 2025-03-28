@@ -1,9 +1,10 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: httpd-deployment
   labels:
-    app: httpd  # Same common label to match both deployments
+    app: httpd
 spec:
   replicas: 3
   selector:
@@ -15,12 +16,12 @@ spec:
         app: httpd
     spec:
       containers:
-      - name: httpd
-        image: httpd:latest
-        ports:
-        - containerPort: 8080
+        - name: httpd
+          image: httpd:latest
+          ports:
+            - containerPort: 8080
 
-service file :-
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,9 +29,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: httpd  # Matches httpd deployment
+    app: httpd
   ports:
-    - name: httpd-port  # Name for the httpd port
+    - name: httpd-port
       port: 8080
       targetPort: 8080
-      nodePort: 30001  # Expose httpd on NodePort 30001
+      nodePort: 30001
